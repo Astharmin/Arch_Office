@@ -19,6 +19,25 @@ dict_asig = {
     'FRANCES':                          'Francés',
 }
 
+def detec(df):
+
+    alum_list = sorted(list(
+        df['NOMBRE'].drop_duplicates()
+    ))
+    asig_list = sorted(list(
+        df['ASIGNATURA'].drop_duplicates()
+    ))
+
+    for al in alum_list:
+        for asig in asig_list:
+            filtro_all = df[(df['NOMBRE'] == al) & (df['ASIGNATURA'] == asig)]
+            # print(f'Nombre y Asignatura: {filtro_all}')
+
+            if len(filtro_all) == 0:
+                print(f'Error: {al} no tiene asignatura: {asig}')
+            elif len(filtro_all) > 1:
+                print(f'Error: {al} asignatura repetida: {asig, len(filtro_all)}')
+
 def main():
     excel_df = pd.read_excel(NOTAS_ALUMNOS,
                              sheet_name='Notas')
@@ -37,6 +56,8 @@ def main():
         filtro.append(valorID)
 
     print(f'\nAsignaturas: {filtro}')
+
+    detec(excel_df)
 
 if __name__ == '__main__':
     main()
