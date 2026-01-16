@@ -32,8 +32,10 @@ def detec(df):
 
             if len(filtro_all) == 0:
                 print(f'Error: {al} no tiene asignatura: {asig}')
+                err1 = True
             elif len(filtro_all) > 1:
                 print(f'Error: {al} asignatura repetida: {asig, len(filtro_all)}')
+                err2 = True
 
     #<--- Detectar notas fuera de rango --->
     for index, row in df.iterrows():
@@ -46,6 +48,7 @@ def detec(df):
             if not (0.0 <= nota <= 10.0):
                 print(f'Error: {alumno} tiene nota {trim}, '
                       f'asignatura: {asignatura} fuera de rango: {nota}')
+                err3 = True
 
 
 def main():
