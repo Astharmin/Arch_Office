@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 
 NOTAS_ALUMNOS = r'SRC/Notas_Alumnos.xlsx'
 
@@ -50,6 +51,11 @@ def detec(df):
                       f'asignatura: {asignatura} fuera de rango: {nota}')
                 err3 = True
 
+    if(err1 == True) or (err2 == True) or (err3 == True):
+        print('\n Corregir errores para continuar...')
+        sys.exit(1)
+    else:
+        print('Ningun error Detectado')
 
 def main():
     excel_df = pd.read_excel(NOTAS_ALUMNOS, sheet_name='Notas')
