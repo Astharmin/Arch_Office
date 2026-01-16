@@ -19,6 +19,8 @@ dict_asig = {
 
 
 def detec(df):
+    err1, err2, err3 = False, False, False
+
     #<--- Detectar asignaturas faltantes o repetidas --->
     alum_list = sorted(list(df['NOMBRE'].drop_duplicates()))
     asig_list = sorted(list(df['ASIGNATURA'].drop_duplicates()))
