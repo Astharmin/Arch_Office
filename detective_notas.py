@@ -82,12 +82,6 @@ def validar_estructura(df: pd.DataFrame) -> Tuple[bool, bool, bool]:
 
 
 def validar_datos(df: pd.DataFrame) -> bool:
-    """
-    Función principal de validación que maneja todos los tipos de errores.
-
-    Returns:
-        bool: True si la validación pasa, False si hay errores críticos
-    """
     errores = validar_estructura(df)
 
     # Resumen de validación
