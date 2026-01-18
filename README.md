@@ -1,180 +1,144 @@
-# 📚 SchoolGuard: El Detective de Notas Escolares
+# 🛠️ Autómata de Microsoft Office con Python
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Validation-green.svg)
-![Estado](https://img.shields.io/badge/Estado-En%20Producción-success.svg)
-![Humor](https://img.shields.io/badge/Humor-Academicamente%20Gracioso-orange.svg)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Wizardry-green.svg)
+![openpyxl](https://img.shields.io/badge/openpyxl-Excel%20Ninja-yellow.svg)
+![Estado](https://img.shields.io/badge/Estado-Evolucionando%20🚀-orange.svg)
 
-## 🕵️‍♂️ ¿Qué es SchoolGuard?
+## ⚡ ¿Qué es Arch_Office?
 
-**SchoolGuard** es tu detective personal de notas escolares. ¿Cansado de que Juan tenga 3 Matemáticas o de que María tenga notas de -5 a 15? ¡Este programa lo descubre todo! Es como un CSI pero para planillas de Excel académicas.
+Es tu asistente digital para tareas repetitivas de oficina. ¿Cansado de revisar a mano cientos de filas en Excel, de formatear documentos de Word uno por uno, o de enviar correos genéricos? Este conjunto de scripts en Python automatiza todo eso y más, liberándote para hacer un trabajo más creativo e interesante.
 
-## 🎭 La Tragedia Cotidiana que Resolvemos
+¡Deja que el código haga el trabajo pesado por ti!
 
-Imagina esto: Eres profesor/a y recibes un Excel con las notas. Pero...
-- 📉 Pedro tiene 17 en Educación Física (¡quiere ir a las Olimpiadas!)
-- 📚 Ana tiene 4 asignaturas de Inglés (¿bilingüe extremo?)
-- ❌ A Carlos le "olvidaron" ponerle todas las asignaturas
+## 🧩 Módulos y Funcionalidades
 
-**SchoolGuard** llega al rescate con su lupa digital para encontrar estos "errores creativos".
+Este repositorio es un **toolkit modular**. Puedes usar cada script por separado para resolver un problema específico, o combinarlos para crear flujos de trabajo complejos.
 
-## ✨ Funcionalidades Detectivezcas
+| Módulo | Script | Descripción | Estado |
+| :--- | :--- | :--- | :--- |
+| **🧮 Validador de Excel** | `detective_notas.py` | Tu detective personal de hojas de cálculo. Encuentra errores, duplicados y datos faltantes en archivos Excel académicos. | ✅ **Activo** |
+| **📝 Automatizador de Word** | *`word_mago.py`* | Genera y personaliza documentos de Word a partir de plantillas y datos variables. Ideal para informes, contratos o cartas masivas. | 🔜 **Próximamente** |
+| **📧 Enviador de Correos** | *`mail_bot.py`* | Envía correos electrónicos personalizados en masa, con archivos adjuntos. Perfecto para notificaciones o boletines. | 🔜 **Próximamente** |
 
-### 🔍 **Detección de Asignaturas Fantasmas**
-```python
-"⚠ Ana le faltan 3 asignaturas:"
-"   • Matemáticas"
-"   • Biología" 
-"   • Ética"
-```
-*(Sospechoso... muy sospechoso)*
+---
 
-### 🔄 **Cazador de Duplicados**
-```python
-"⚠ Juan tiene asignaturas repetidas:"
-"   • Educación Física: 3 veces"
-```
-*(¿Triple entrenamiento o error de copiar-pegar?)*
+## 🔍 Spotlight: El Validador de Excel (`detective_notas.py`)
 
-### 📊 **Policía de Notas**
-```python
-"⚠ Notas fuera de rango en NOTA T1:"
-"   • Luis - Tecnología: 17.5"
-```
-*(¡Luis inventó una nueva escala de puntuación!)*
+Esta herramienta ya está en funcionamiento y es un claro ejemplo del poder de la automatización. Escanea archivos Excel de notas y te alerta sobre inconsistencias que un vistazo humano podría pasar por alto.
 
-## 🏗️ Estructura del Proyecto
+### ⚠️ Lo que Detecta:
+*   **Notas Imposibles**: ¿Matemáticas: 17.5? ¡Rompe la escala!
+*   **Asignaturas Fantasma**: ¿A un alumno le falta Inglés? Sospechoso.
+*   **Clones Académicos**: ¿3 veces Educación Física? ¡Error de copiar-pegar!
 
-```
-SchoolGuard/
-├── 📁 SRC/
-│   └── 📄 Notas_Alumnos.xlsx    # El archivo "sospechoso"
-├── 🕵️‍♂️ detective_notas.py       # Nuestro detective principal
-├── 📋 README.md                 # Esta documentación épica
-└── ☕ requirements.txt          # Para el café... digo, dependencias
-```
-
-## 📋 Cómo Usar (Modo Detective)
-
-```python
-# Ejecuta y observa la magia:
+### 🎯 Uso Rápido:
+```bash
 python detective_notas.py
-
-# Verás algo como:
+```
+**Salida de ejemplo:**
+```
 ============================================================
 SISTEMA DE VALIDACIÓN DE NOTAS ACADÉMICAS
 ============================================================
 📊 Datos cargados: 150 registros
-
-============================================================
-ASIGNATURAS ENCONTRADAS
-============================================================
- 1. Biología                    (25 alumnos)
- 2. Cultura clásica             (22 alumnos)
- 3. Educación Física            (25 alumnos)
- 4. Educación Plástica          (24 alumnos)
-... y así sucesivamente
+⚠ Luis - Tecnología: Nota T1 = 25 (¡Fuera de rango!)
+⚠ Ana tiene la asignatura 'Inglés' duplicada (3 veces)
+✅ Validación completada. Se encontraron 2 tipos de errores.
 ```
 
-## 🎯 ¿Qué Detecta Exactamente?
-
-| Error | Ejemplo | Comentario del Detective |
-|-------|---------|--------------------------|
-| ⚠ **Notas imposibles** | Matemáticas: 17.5 | "¡Esta nota rompe las leyes de la física académica!" |
-| ⚠ **Asignaturas fantasma** | Falta Inglés | "¿Vacaciones lingüísticas?" |
-| ⚠ **Clones académicos** | 3x Educación Física | "¿Entrenamiento para trilogía deportiva?" |
-
-## 🎨 Características Especiales
-
-### 📚 **Traductor de Asignaturas**
-```python
-dict_asig = {
-    'MATEMATICAS': 'Matemáticas',  # Sin acento → Con acento
-    'INGLES': 'Inglés',            # Porque la ortografía importa
-    'ETICA': 'Ética',              # Incluso en mayúsculas
-}
-```
-*(Porque escribir bien es de gente educada)*
-
-### 📊 **Estadísticas en Tiempo Real**
-```
-Total de alumnos: 25
-Total de asignaturas: 12
-Total registros válidos: 300
-```
-*(¡Matemáticas que sí tienen sentido!)*
-
-## 🚨 Casos de Uso Realistas
-
-### **Caso 1: El Alumno Invisible**
-```python
-"⚠ Pedro le faltan 5 asignaturas"
-# Diagnóstico: ¿Se escapó a mitad de año?
-```
-
-### **Caso 2: El Sobresaliente Exagerado**
-```python
-"⚠ Notas fuera de rango: Tecnología: 25"
-# Diagnóstico: ¡Inventó una máquina del tiempo!
-```
-
-### **Caso 3: El Amante de las Asignaturas**
-```python
-"⚠ María tiene asignaturas repetidas: Música: 4 veces"
-# Diagnóstico: ¿Cuarteto musical o error de Excel?
-```
-
-## 🔧 Para Desarrolladores (Modo Serio)
-
-### **Estructura del Código**
-```python
-def validar_estructura(df):
-    """Valida la estructura completa del DataFrame"""
-    # 1. Verifica asignaturas por alumno
-    # 2. Busca duplicados
-    # 3. Valida rangos de notas
-    # 4. Reporta como un detective educado
-```
-
-### **Extender el Detective**
-```python
-# ¿Quieres agregar más validaciones?
-def validar_promedios(df):
-    """Detecta promedios sospechosamente perfectos"""
-    pass
-
-def validar_evolucion(df):
-    """Analiza si las notas mejoran/deterioran sospechosamente"""
-    pass
-```
-
-## 📈 Próximas Actualizaciones
-
-- [ ] 🎯 **Modo Paranoico**: Detectar si alguien tiene todas las notas iguales
-- [ ] 📱 **Interfaz Web**: Para que los directores lo usen sin saber programar
-- [ ] 🤖 **IA Predictiva**: "Este alumno tiene un 87% de probabilidad de copiar"
-- [ ] 🎮 **Modo Juego**: "Encuentra los 10 errores en esta planilla"
-
-## 🤝 ¿Quieres Contribuir?
-
-¡Claro que sí! Puedes:
-1. 🐛 Reportar un "crimen académico" no detectado (bug)
-2. 💡 Sugerir nuevas validaciones detectivezcas
-3. 📝 Mejorar la documentación (más chistes, por favor)
-4. 🔧 Añadir funcionalidades (¿validación de asistencia?)
-
-## 📜 Licencia
-
-Licencia MIT - Básicamente: "Úsalo, mejóralo, compártelo, pero no culpes al detective si alguien reprueba".
-
-## ✨ Autor
-
-**Astharmin** - El detective que prefirió Python sobre una lupa real.
-
-> "En un mundo lleno de datos desordenados, alguien tiene que poner orden... y un poco de humor."
+> **💡 Esta es solo la punta del iceberg.** El mismo principio de leer, analizar y actuar sobre datos de Office se aplica a los módulos de Word y Correo que están en camino.
 
 ---
 
-⭐ **¿Te gustó este detective académico? ¡Dale una estrella al repositorio!** ⭐
+## 🏗️ Estructura del Proyecto (Evolutiva)
 
-*"Validando notas desde 2023, porque 2+2 nunca fue 5... a menos que sea en Excel"*
+```
+Arch_Office/
+│
+├── 📁 SRC/                           # Recursos y datos de ejemplo
+│   └── Notas_Alumnos.xlsx
+│
+├── 🧮 detective_notas.py             # Módulo 1: Validador de Excel (LISTO)
+├── 📝 word_mago.py                   # Módulo 2: Automatizador de Word (PRÓXIMO)
+├── 📧 mail_bot.py                    # Módulo 3: Enviador de Correos (PRÓXIMO)
+│
+├── 📋 README.md                      # Esta documentación
+├── 📜 requirements.txt               # Dependencias del proyecto
+└── ⚖️ LICENSE                        # Licencia MIT
+```
+
+---
+
+## 🚀 Cómo Empezar
+
+1.  **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/Astharmin/Arch_Office.git
+    cd Arch_Office
+    ```
+
+2.  **Configura tu entorno (recomendado):**
+    ```bash
+    python -m venv venv
+    # En Windows:
+    venv\Scripts\activate
+    # En Linux/Mac:
+    source venv/bin/activate
+    ```
+
+3.  **Instala las dependencias:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+    *(El archivo `requirements.txt` debe incluir `pandas`, `openpyxl` y en el futuro librerías para Word y email)*
+
+4.  **¡Ejecuta y automatiza!**
+    ```bash
+    # Prueba el validador de Excel
+    python detective_notas.py
+    ```
+
+---
+
+## 📅 Hoja de Ruta (Roadmap)
+
+El proyecto está vivo y en constante evolución. Este es el plan:
+
+*   **✅ Fase 1: Cimientos (Completado)**
+    *   Validador robusto de archivos Excel (`detective_notas.py`).
+*   **🔨 Fase 2: Expansión (En Progreso)**
+    *   Desarrollo del módulo `word_mago.py` para generar documentos.
+    *   Desarrollo del módulo `mail_bot.py` para envío de correos.
+*   **🔮 Fase 3: Integración y Potencia (Futuro)**
+    *   Crear un script `orquestador.py` que combine varios módulos en un flujo de trabajo.
+    *   Añadir una interfaz de línea de comandos (CLI) más amigable.
+    *   Soporte para más formatos (PDF, PowerPoint).
+
+**¿Tienes una idea para un nuevo módulo o una mejora?** ¡Tu contribución es bienvenida! Revisa la sección de contribuciones.
+
+---
+
+## 🤝 ¿Quieres Contribuir?
+
+¡Me encantaría que este toolkit creciera con la ayuda de la comunidad! Puedes ayudar de varias formas:
+
+1.  **🐛 Reportar un Bug:** ¿Encontraste un error? Ábreme un *issue*.
+2.  **💡 Sugerir una Mejora:** ¿Tienes una idea para un nuevo módulo o funcionalidad? ¡Hablemos!
+3.  **🔧 Enviar un Pull Request (PR):** Si implementaste una corrección o una nueva característica, envíala.
+4.  **📚 Mejorar la Documentación:** ¿Encontraste algo poco claro en este README? Tu ayuda para hacerlo más comprensible es invaluable.
+
+---
+
+## 📜 Licencia
+
+Este proyecto está bajo la **Licencia MIT**. En resumen: puedes usar, modificar y distribuir este código libremente, incluso con fines comerciales. Solo se pide atribución. Para más detalles, consulta el archivo `LICENSE`.
+
+## ✨ Autor
+
+- **Astharmin** -
+> "La tecnología debería liberarnos del trabajo repetitivo, no crearlo."
+
+---
+
+⭐ **¿Te parece útil automatizar tareas de oficina? ¡Dale una estrella al repositorio para apoyar su desarrollo!** ⭐
