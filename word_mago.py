@@ -2,8 +2,13 @@ import sys
 import pandas as pd
 from docxtpl import DocxTemplate
 
+NOTAS_ALUMNOS = r'SRC/Notas_Alumnos.xlsx'
 PLANTILLA_CURSOS_PATH = r'SRC/Plantilla_Final.docx'
 PATH_OUTPUT = r'.\OUTPUT'
+
+df = pd.read_excel(NOTAS_ALUMNOS, sheet_name='Datos_Alumnos')
+nom_alum_list = sorted(df['NOMBRE'].dropna().unique())
+nom_alumnos = nom_alum_list[0]
 
 def main ():
     docs_tpl = DocxTemplate(PLANTILLA_CURSOS_PATH)
