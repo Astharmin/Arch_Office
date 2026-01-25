@@ -1,5 +1,5 @@
-import sys
 import pandas as pd
+import shutil, os
 from docxtpl import DocxTemplate
 
 NOTAS_ALUMNOS = r'SRC/Notas_Alumnos.xlsx'
@@ -26,7 +26,15 @@ def elminar_tildes(texto):
 
     return texto_lim
 
+def control_arch(path):
+    if os.path.exists(path):
+        shutil.rmtree(path)
+
+    os.mkdir(path)
+
 def main ():
+    control_arch(PATH_OUTPUT)
+
     for nom_alumnos in nom_alum_list:
         filt_datos_alum = df[(df['NOMBRE'] == nom_alumnos)]
         clase = filt_datos_alum.iloc[0]['CLASE']
@@ -43,7 +51,7 @@ def main ():
         titulo = elminar_tildes(titulo)
         titulo += '.docx'
 
-        docs_tpl.save(PATH_OUTPUT + r'\fichero_word.docx')
+        docs_tpl.save(PATH_OUTPUT + '\\' + titulo)
 
 if __name__ == '__main__':
     main()
