@@ -18,7 +18,7 @@ Este repositorio es un **toolkit modular**. Puedes usar cada script por separado
 | Módulo | Script | Descripción | Estado |
 | :--- | :--- | :--- | :--- |
 | **🧮 Validador de Excel** | `detective_notas.py` | Tu detective personal de hojas de cálculo. Encuentra errores, duplicados y datos faltantes en archivos Excel académicos. | ✅ **Activo** |
-| **📝 Automatizador de Word** | *`word_mago.py`* | Genera y personaliza documentos de Word a partir de plantillas y datos variables. Ideal para informes, contratos o cartas masivas. | 🔜 **Próximamente** |
+| **📝 Automatizador de Word** | *`word_mago.py`* | Genera y personaliza documentos de Word a partir de plantillas y datos variables. Ideal para informes, contratos o cartas masivas. | ✅ **Activo** |
 | **📧 Enviador de Correos** | *`mail_bot.py`* | Envía correos electrónicos personalizados en masa, con archivos adjuntos. Perfecto para notificaciones o boletines. | 🔜 **Próximamente** |
 
 ---
