@@ -139,7 +139,6 @@ def mostrar_progreso(indice: int,
 
 
 def generar_resumen_proceso(resultados: list, ruta_salida: str):
-    """Genera un archivo de resumen del proceso."""
     exitosos = sum(1 for r in resultados if r[1] is not None)
     fallidos = len(resultados) - exitosos
 
