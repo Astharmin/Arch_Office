@@ -115,7 +115,6 @@ def validar_datos(df: pd.DataFrame) -> bool:
 
 
 def cargar_datos() -> pd.DataFrame:
-    """Carga y prepara los datos del archivo Excel."""
     try:
         df = pd.read_excel(NOTAS_ALUMNOS, sheet_name='Notas')
 
@@ -134,7 +133,6 @@ def cargar_datos() -> pd.DataFrame:
 
 
 def mostrar_asignaturas(df: pd.DataFrame):
-    """Muestra las asignaturas encontradas en formato legible."""
     asignaturas = sorted(df['ASIGNATURA'].dropna().unique())
 
     print("\n" + "=" * 60)
@@ -152,7 +150,6 @@ def mostrar_asignaturas(df: pd.DataFrame):
 
 
 def main():
-    """Función principal del programa."""
     print("=" * 60)
     print("SISTEMA DE VALIDACIÓN DE NOTAS ACADÉMICAS")
     print("=" * 60)
