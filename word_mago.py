@@ -36,11 +36,27 @@ def preparar_directorio_salida(ruta_salida: str) -> None:
     print(f"Directorio listo: {ruta_salida}")
 
 
-def cargar_datos_excel(ruta_excel: str, hoja: str = 'Datos_Alumnos') -> pd.DataFrame:
+def cargar_y_combinar_datos_excel(ruta_excel: str) -> pd.DataFrame:
     try:
-        df = pd.read_excel(ruta_excel, sheet_name=hoja)
-        print(f"Datos cargados: {len(df)} registros")
-        return df
+        # Cargar datos de notas (hoja 'Notas')
+        df_notas = pd.read_excel(ruta_excel, sheet_name='Notas')
+        print(f"Datos de notas cargados: {len(df_notas)} registros")
+
+        # Cargar datos de alumnos (hoja 'Datos_Alumnos')
+        df_alumnos = pd.read_excel(ruta_excel, sheet_name='Datos_Alumnos')
+        print(f"Datos de alumnos cargados: {len(df_alumnos)} registros")
+
+        # Combinar los DataFrames por el nombre del alumno
+        df_combinado = pd.merge(df_notas, df_alumnos, on='NOMBRE', how='left')
+        print(f"Datos combinados: {len(df_combinado)} registros")
+
+        # Verificar que todos los alumnos tengan clase asignada
+        sin_clase = df_combinado['CLASE'].isna().sum()
+        if sin_clase > 0:
+            print(f"ADVERTENCIA: {sin_clase} registros sin clase asignada")
+
+        return df_combinado
+
     except FileNotFoundError:
         print(f"ERROR: No se encontró el archivo {ruta_excel}")
         raise
@@ -96,14 +112,14 @@ def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
 
             nota_final = round(sum(notas_numericas) / len(notas_numericas), 2) if notas_numericas else 0.0
 
-            # Crear diccionario con la estructura exacta que espera la plantilla
             item = {
-                'nombre_asignatura': asig,  # Coincide con {{asignombre_asignatura}}
-                't1': nota_t1 if pd.notna(nota_t1) else '',  # Coincide con {{asig.t1}}
-                't2': nota_t2 if pd.notna(nota_t2) else '',  # Coincide con {{asig.t2}}
-                't3': nota_t3 if pd.notna(nota_t3) else '',  # Coincide con {{asig.t3}}
-                'nota_final': nota_final,  # Coincide con {{asig.nota_final}}
-                'calificaciones': ''  # Variable adicional en la plantilla
+                'nombre_asignatura': asig,
+                'asignombre_asignatura': asig,
+                't1': nota_t1 if pd.notna(nota_t1) else '',
+                't2': nota_t2 if pd.notna(nota_t2) else '',
+                't3': nota_t3 if pd.notna(nota_t3) else '',
+                'nota_final': nota_final,
+                'calificaciones': ''
             }
 
             asig_list.append(item)
@@ -116,7 +132,7 @@ def crear_contexto_documento(nombre_alumno: str, clase: str, asignaturas: list) 
         'curso': CURSO,
         'nombre_alumno': nombre_alumno,
         'clase': clase,
-        'asignatura': asignaturas  # Coincide con {{% for asig in asignatura %}}
+        'asignatura': asignaturas
     }
 
 
@@ -127,8 +143,15 @@ def generar_documento_individual(
         nombre_archivo: str
 ) -> str:
     try:
-        # Cargar y renderizar plantilla
+        # Cargar plantilla
         documento = DocxTemplate(plantilla_path)
+
+        # Verificar si hay etiquetas problemáticas en la plantilla
+        with open(plantilla_path, 'rb') as f:
+            content = f.read()
+            if b'{{%' in content or b'%}}' in content:
+                print(f"ADVERTENCIA: La plantilla contiene sintaxis Jinja2 incorrecta")
+
         documento.render(contexto)
 
         # Guardar documento
@@ -220,8 +243,8 @@ def main():
         # 1. Preparar directorio de salida
         preparar_directorio_salida(PATH_OUTPUT)
 
-        # 2. Cargar datos del Excel
-        df = cargar_datos_excel(NOTAS_ALUMNOS)
+        # 2. Cargar y combinar datos del Excel
+        df = cargar_y_combinar_datos_excel(NOTAS_ALUMNOS)
 
         # 3. Obtener lista de alumnos
         nombres_alumnos = obtener_lista_alumnos(df)
