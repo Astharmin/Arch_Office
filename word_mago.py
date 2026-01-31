@@ -70,11 +70,53 @@ def generar_nombre_archivo(nombre_alumno: str) -> str:
     return nombre_archivo
 
 
-def crear_contexto_documento(nombre_alumno: str, clase: str) -> dict:
+def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
+    asig_list = []
+
+    # Obtener asignaturas únicas del alumno
+    asignaturas = df_alumno['ASIGNATURA'].dropna().unique()
+
+    for asig in sorted(asignaturas):
+        # Filtrar datos para esta asignatura
+        datos_asig = df_alumno[df_alumno['ASIGNATURA'] == asig]
+
+        if not datos_asig.empty:
+            fila = datos_asig.iloc[0]
+
+            # Extraer notas de cada trimestre
+            nota_t1 = fila.get('NOTA T1', '')
+            nota_t2 = fila.get('NOTA T2', '')
+            nota_t3 = fila.get('NOTA T3', '')
+
+            # Calcular promedio solo si hay notas numéricas
+            notas_numericas = []
+            for nota in [nota_t1, nota_t2, nota_t3]:
+                if isinstance(nota, (int, float)) and pd.notna(nota):
+                    notas_numericas.append(float(nota))
+
+            nota_final = round(sum(notas_numericas) / len(notas_numericas), 2) if notas_numericas else 0.0
+
+            # Crear diccionario con la estructura exacta que espera la plantilla
+            item = {
+                'nombre_asignatura': asig,  # Coincide con {{asignombre_asignatura}}
+                't1': nota_t1 if pd.notna(nota_t1) else '',  # Coincide con {{asig.t1}}
+                't2': nota_t2 if pd.notna(nota_t2) else '',  # Coincide con {{asig.t2}}
+                't3': nota_t3 if pd.notna(nota_t3) else '',  # Coincide con {{asig.t3}}
+                'nota_final': nota_final,  # Coincide con {{asig.nota_final}}
+                'calificaciones': ''  # Variable adicional en la plantilla
+            }
+
+            asig_list.append(item)
+
+    return asig_list
+
+
+def crear_contexto_documento(nombre_alumno: str, clase: str, asignaturas: list) -> dict:
     return {
         'curso': CURSO,
         'nombre_alumno': nombre_alumno,
-        'clase': clase
+        'clase': clase,
+        'asignatura': asignaturas  # Coincide con {{% for asig in asignatura %}}
     }
 
 
@@ -84,7 +126,6 @@ def generar_documento_individual(
         ruta_salida: str,
         nombre_archivo: str
 ) -> str:
-
     try:
         # Cargar y renderizar plantilla
         documento = DocxTemplate(plantilla_path)
@@ -106,13 +147,15 @@ def procesar_alumno(
         plantilla_path: str,
         ruta_salida: str
 ) -> tuple:
-
     try:
         # Obtener datos del alumno
         datos_alumno, clase = filtrar_datos_alumno(df, nombre_alumno)
 
-        # Crear contexto
-        contexto = crear_contexto_documento(nombre_alumno, clase)
+        # Extraer asignaturas y notas
+        asignaturas = extraer_asignaturas_notas(datos_alumno)
+
+        # Crear contexto con las asignaturas
+        contexto = crear_contexto_documento(nombre_alumno, clase, asignaturas)
 
         # Generar nombre de archivo
         nombre_archivo = generar_nombre_archivo(nombre_alumno)
@@ -169,7 +212,6 @@ def generar_resumen_proceso(resultados: list, ruta_salida: str):
 
 
 def main():
-    """Función principal del programa."""
     print("=" * 60)
     print("GENERADOR DE DOCUMENTOS DE NOTAS")
     print("=" * 60)
