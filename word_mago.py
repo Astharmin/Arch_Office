@@ -89,44 +89,45 @@ def generar_nombre_archivo(nombre_alumno: str) -> str:
 def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
     asig_list = []
 
-    # Obtener asignaturas únicas del alumno
     asignaturas = df_alumno['ASIGNATURA'].dropna().unique()
 
     for asig in sorted(asignaturas):
-        # Filtrar datos para esta asignatura
         datos_asig = df_alumno[df_alumno['ASIGNATURA'] == asig]
 
         if not datos_asig.empty:
             fila = datos_asig.iloc[0]
 
-            # Extraer notas de cada trimestre
-            nota_t1 = fila.get('NOTA T1', '')
-            nota_t2 = fila.get('NOTA T2', '')
-            nota_t3 = fila.get('NOTA T3', '')
+            # Extraer notas directamente
+            n1 = fila.get('NOTA T1')
+            n2 = fila.get('NOTA T2')
+            n3 = fila.get('NOTA T3')
 
-            # Convertir a string para mostrar en la tabla
-            nota_t1_str = str(nota_t1) if pd.notna(nota_t1) else ''
-            nota_t2_str = str(nota_t2) if pd.notna(nota_t2) else ''
-            nota_t3_str = str(nota_t3) if pd.notna(nota_t3) else ''
+            # Función simplificada para formatear
+            def fmt(valor):
+                if pd.isna(valor):
+                    return ''
+                try:
+                    return f'{float(valor):.2f}'
+                except:
+                    return ''
 
-            # Calcular promedio solo si hay notas numéricas
-            notas_numericas = []
-            for nota in [nota_t1, nota_t2, nota_t3]:
-                if isinstance(nota, (int, float)) and pd.notna(nota):
-                    notas_numericas.append(float(nota))
+            # Calcular promedio directamente
+            notas_numericas = [float(n) for n in [n1, n2, n3]
+                               if isinstance(n, (int, float)) and pd.notna(n)]
 
-            nota_final = round(sum(notas_numericas) / len(notas_numericas), 2) if notas_numericas else 0.0
+            if notas_numericas:
+                promedio = sum(notas_numericas) / len(notas_numericas)
+                nota_final = f'{promedio:.2f}'
+            else:
+                nota_final = ''
 
-            item = {
+            asig_list.append({
                 'nombre_asignatura': asig,
-                't1': nota_t1_str,
-                't2': nota_t2_str,
-                't3': nota_t3_str,
+                't1': fmt(n1),
+                't2': fmt(n2),
+                't3': fmt(n3),
                 'nota_final': nota_final,
-                'calificacion': ''
-            }
-
-            asig_list.append(item)
+                'calificacion': ''})
 
     return asig_list
 
