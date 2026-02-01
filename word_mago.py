@@ -104,6 +104,11 @@ def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
             nota_t2 = fila.get('NOTA T2', '')
             nota_t3 = fila.get('NOTA T3', '')
 
+            # Convertir a string para mostrar en la tabla
+            nota_t1_str = str(nota_t1) if pd.notna(nota_t1) else ''
+            nota_t2_str = str(nota_t2) if pd.notna(nota_t2) else ''
+            nota_t3_str = str(nota_t3) if pd.notna(nota_t3) else ''
+
             # Calcular promedio solo si hay notas numéricas
             notas_numericas = []
             for nota in [nota_t1, nota_t2, nota_t3]:
@@ -114,12 +119,11 @@ def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
 
             item = {
                 'nombre_asignatura': asig,
-                'asignombre_asignatura': asig,
-                't1': nota_t1 if pd.notna(nota_t1) else '',
-                't2': nota_t2 if pd.notna(nota_t2) else '',
-                't3': nota_t3 if pd.notna(nota_t3) else '',
+                't1': nota_t1_str,
+                't2': nota_t2_str,
+                't3': nota_t3_str,
                 'nota_final': nota_final,
-                'calificaciones': ''
+                'calificacion': ''
             }
 
             asig_list.append(item)
@@ -132,7 +136,7 @@ def crear_contexto_documento(nombre_alumno: str, clase: str, asignaturas: list) 
         'curso': CURSO,
         'nombre_alumno': nombre_alumno,
         'clase': clase,
-        'asignatura': asignaturas
+        'asignatura_list': asignaturas
     }
 
 
@@ -146,11 +150,12 @@ def generar_documento_individual(
         # Cargar plantilla
         documento = DocxTemplate(plantilla_path)
 
-        # Verificar si hay etiquetas problemáticas en la plantilla
-        with open(plantilla_path, 'rb') as f:
-            content = f.read()
-            if b'{{%' in content or b'%}}' in content:
-                print(f"ADVERTENCIA: La plantilla contiene sintaxis Jinja2 incorrecta")
+        # DEBUG: Mostrar las variables disponibles
+        # print(f"DEBUG: Variables en contexto: {list(contexto.keys())}")
+        # if 'asignatura_list' in contexto:
+        #     print(f"DEBUG: {len(contexto['asignatura_list'])} asignaturas encontradas")
+        #     if contexto['asignatura_list']:
+        #         print(f"DEBUG: Primera asignatura: {contexto['asignatura_list'][0]}")
 
         documento.render(contexto)
 
@@ -176,6 +181,13 @@ def procesar_alumno(
 
         # Extraer asignaturas y notas
         asignaturas = extraer_asignaturas_notas(datos_alumno)
+
+        # print(f"DEBUG para {nombre_alumno}:")
+        # print(f"  - Clase: {clase}")
+        # print(f"  - Asignaturas encontradas: {len(asignaturas)}")
+        # for asig in asignaturas:
+        #     print(
+        #         f"    * {asig['nombre_asignatura']}: T1={asig['t1']}, T2={asig['t2']}, T3={asig['t3']}, Final={asig['nota_final']}")
 
         # Crear contexto con las asignaturas
         contexto = crear_contexto_documento(nombre_alumno, clase, asignaturas)
