@@ -89,48 +89,49 @@ def generar_nombre_archivo(nombre_alumno: str) -> str:
 def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
     asig_list = []
 
-    asignaturas = df_alumno['ASIGNATURA'].dropna().unique()
+    for asig in sorted(df_alumno['ASIGNATURA'].dropna().unique()):
+        fila = df_alumno[df_alumno['ASIGNATURA'] == asig].iloc[0]
 
-    for asig in sorted(asignaturas):
-        datos_asig = df_alumno[df_alumno['ASIGNATURA'] == asig]
+        n1, n2, n3 = fila.get('NOTA T1'), fila.get('NOTA T2'), fila.get('NOTA T3')
 
-        if not datos_asig.empty:
-            fila = datos_asig.iloc[0]
+        # Notas numéricas para cálculo
+        notas_numericas = [float(n) for n in [n1, n2, n3]
+                           if isinstance(n, (int, float)) and pd.notna(n)]
 
-            # Extraer notas directamente
-            n1 = fila.get('NOTA T1')
-            n2 = fila.get('NOTA T2')
-            n3 = fila.get('NOTA T3')
+        if notas_numericas:
+            promedio = sum(notas_numericas) / len(notas_numericas)
+            nota_final = f'{promedio:.2f}'
 
-            # Función simplificada para formatear
-            def fmt(valor):
-                if pd.isna(valor):
-                    return ''
-                try:
-                    return f'{float(valor):.2f}'
-                except:
-                    return ''
+            # Determinar calificación
+            if promedio < 5.0:
+                calif = 'REPROBADO'
+            elif promedio < 7.0:
+                calif = 'APROBADO'
+            elif promedio < 9.0:
+                calif = 'EXIMIDO'
+            else:  # 9.0 o más
+                calif = 'SOBRESALIENTE'
+        else:
+            nota_final = ''
+            calif = 'SIN NOTAS'
 
-            # Calcular promedio directamente
-            notas_numericas = [float(n) for n in [n1, n2, n3]
-                               if isinstance(n, (int, float)) and pd.notna(n)]
+        # Función de formato local
+        def fmt(v):
+            try:
+                return f'{float(v):.2f}' if pd.notna(v) else ''
+            except:
+                return ''
 
-            if notas_numericas:
-                promedio = sum(notas_numericas) / len(notas_numericas)
-                nota_final = f'{promedio:.2f}'
-            else:
-                nota_final = ''
-
-            asig_list.append({
-                'nombre_asignatura': asig,
-                't1': fmt(n1),
-                't2': fmt(n2),
-                't3': fmt(n3),
-                'nota_final': nota_final,
-                'calificacion': ''})
+        asig_list.append({
+            'nombre_asignatura': asig,
+            't1': fmt(n1),
+            't2': fmt(n2),
+            't3': fmt(n3),
+            'nota_final': nota_final,
+            'calificacion': calif
+        })
 
     return asig_list
-
 
 def crear_contexto_documento(nombre_alumno: str, clase: str, asignaturas: list) -> dict:
     return {
