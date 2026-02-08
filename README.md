@@ -1,67 +1,111 @@
-# 🛠️ Autómata de Microsoft Office con Python
+# 🛠️ Arch_Office: Automatización Inteligente de Microsoft Office con Python
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Wizardry-green.svg)
-![openpyxl](https://img.shields.io/badge/openpyxl-Excel%20Ninja-yellow.svg)
-![Estado](https://img.shields.io/badge/Estado-Evolucionando%20🚀-orange.svg)
+![python-docx](https://img.shields.io/badge/python--docx-Word%20Automation-blue.svg)
+![Estado](https://img.shields.io/badge/Estado-En%20Expansión%20🚀-orange.svg)
 
 ## ⚡ ¿Qué es Arch_Office?
 
-Es tu asistente digital para tareas repetitivas de oficina. ¿Cansado de revisar a mano cientos de filas en Excel, de formatear documentos de Word uno por uno, o de enviar correos genéricos? Este conjunto de scripts en Python automatiza todo eso y más, liberándote para hacer un trabajo más creativo e interesante.
+**Arch_Office** es tu asistente digital para tareas repetitivas de oficina. Este toolkit en Python transforma horas de trabajo manual en segundos de procesamiento automático, liberándote para tareas más creativas y estratégicas.
 
-¡Deja que el código haga el trabajo pesado por ti!
+¿Cansado de revisar hojas de cálculo, generar documentos uno por uno o enviar correos masivos? ¡Deja que el código haga el trabajo pesado!
 
-## 🧩 Módulos y Funcionalidades
+## 🎯 Avances Recientes: ¡Word_Mago está Vivo! ✨
 
-Este repositorio es un **toolkit modular**. Puedes usar cada script por separado para resolver un problema específico, o combinarlos para crear flujos de trabajo complejos.
+**¡Gran noticia!** El módulo `word_mago.py` ya está operativo y listo para usar. Ahora puedes generar documentos de Word personalizados automáticamente a partir de datos de Excel, completando así un flujo de trabajo integral.
+
+### 🔄 Flujo de Trabajo Completo:
+```
+Excel (Datos) → Detective_Notas (Validación) → Word_Mago (Generación) → OUTPUT (Documentos listos)
+```
+
+---
+
+## 🧩 Módulos y Funcionalidades Actualizadas
 
 | Módulo | Script | Descripción | Estado |
 | :--- | :--- | :--- | :--- |
-| **🧮 Validador de Excel** | `detective_notas.py` | Tu detective personal de hojas de cálculo. Encuentra errores, duplicados y datos faltantes en archivos Excel académicos. | ✅ **Activo** |
-| **📝 Automatizador de Word** | *`word_mago.py`* | Genera y personaliza documentos de Word a partir de plantillas y datos variables. Ideal para informes, contratos o cartas masivas. | ✅ **Activo** |
-| **📧 Enviador de Correos** | *`mail_bot.py`* | Envía correos electrónicos personalizados en masa, con archivos adjuntos. Perfecto para notificaciones o boletines. | 🔜 **Próximamente** |
+| **🔍 Validador de Excel** | `detective_notas.py` | Tu detective personal que encuentra errores, duplicados y datos faltantes en Excel. | ✅ **Activo** |
+| **✨ Generador de Word** | `word_mago.py` | **¡NUEVO!** Crea documentos Word personalizados a partir de plantillas y datos de Excel. Genera informes de notas con promedios y clasificaciones automáticas. | ✅ **Activo** |
+| **📧 Enviador de Correos** | `mail_bot.py` | Próximamente: Envío masivo de correos personalizados con adjuntos. | 🔜 **En Desarrollo** |
 
 ---
 
-## 🔍 Spotlight: El Validador de Excel (`detective_notas.py`)
+## ✨ Spotlight: Word_Mago en Acción
 
-Esta herramienta ya está en funcionamiento y es un claro ejemplo del poder de la automatización. Escanea archivos Excel de notas y te alerta sobre inconsistencias que un vistazo humano podría pasar por alto.
+### 🎩 ¿Qué hace este mago?
+1. **Lee datos combinados** de múltiples hojas de Excel
+2. **Calcula automáticamente** promedios y clasificaciones (REPROBADO, APROBADO, EXIMIDO, SOBRESALIENTE)
+3. **Genera documentos individuales** para cada alumno
+4. **Aplica colores diferenciados** según la calificación
+5. **Organiza la salida** en carpetas limpias con nombres normalizados
 
-### ⚠️ Lo que Detecta:
-*   **Notas Imposibles**: ¿Matemáticas: 17.5? ¡Rompe la escala!
-*   **Asignaturas Fantasma**: ¿A un alumno le falta Inglés? Sospechoso.
-*   **Clones Académicos**: ¿3 veces Educación Física? ¡Error de copiar-pegar!
+### 🎨 Características Principales:
+- **Personalización total**: Cada documento incluye nombre del alumno, clase y curso
+- **Cálculos automáticos**: Promedios de tres trimestres con clasificación por color
+- **Manejo robusto**: Eliminación de tildes en nombres de archivo, gestión de errores
+- **Resumen detallado**: Genera reporte de proceso con éxitos y fallos
 
-### 🎯 Uso Rápido:
+### 🚀 Uso Rápido:
 ```bash
-python detective_notas.py
+python word_mago.py
 ```
+
 **Salida de ejemplo:**
 ```
 ============================================================
-SISTEMA DE VALIDACIÓN DE NOTAS ACADÉMICAS
+GENERADOR DE DOCUMENTOS DE NOTAS
 ============================================================
-📊 Datos cargados: 150 registros
-⚠ Luis - Tecnología: Nota T1 = 25 (¡Fuera de rango!)
-⚠ Ana tiene la asignatura 'Inglés' duplicada (3 veces)
-✅ Validación completada. Se encontraron 2 tipos de errores.
+Directorio listo: .\OUTPUT
+Datos de notas cargados: 300 registros
+Datos de alumnos cargados: 25 registros
+Datos combinados: 300 registros
+
+Procesando 25 alumnos...
+--------------------------------------------------
+[  1/25] ✅ Juan Pérez
+[  2/25] ✅ María González
+[  3/25] ✅ Carlos Rodríguez
+...
+[ 25/25] ✅ Ana López
+
+============================================================
+RESUMEN DEL PROCESO
+============================================================
+Total alumnos procesados: 25
+Documentos generados: 25
+Errores: 0
+
+✅ Proceso completado!
 ```
 
-> **💡 Esta es solo la punta del iceberg.** El mismo principio de leer, analizar y actuar sobre datos de Office se aplica a los módulos de Word y Correo que están en camino.
+### 📁 Estructura de Salida:
+```
+OUTPUT/
+├── NOTAS_JUAN_PEREZ.docx
+├── NOTAS_MARIA_GONZALEZ.docx
+├── NOTAS_CARLOS_RODRIGUEZ.docx
+├── ...
+└── resumen_proceso.txt
+```
 
 ---
 
-## 🏗️ Estructura del Proyecto (Evolutiva)
+## 🏗️ Estructura del Proyecto Actualizada
 
 ```
 Arch_Office/
 │
-├── 📁 SRC/                           # Recursos y datos de ejemplo
-│   └── Notas_Alumnos.xlsx
+├── 📁 SRC/                           # Recursos y plantillas
+│   ├── Notas_Alumnos.xlsx           # Datos de ejemplo (hojas: Notas, Datos_Alumnos)
+│   └── Plantilla_Final.docx          # Plantilla Word para documentos
 │
-├── 🧮 detective_notas.py             # Módulo 1: Validador de Excel (LISTO)
-├── 📝 word_mago.py                   # Módulo 2: Automatizador de Word (PRÓXIMO)
-├── 📧 mail_bot.py                    # Módulo 3: Enviador de Correos (PRÓXIMO)
+├── 📁 OUTPUT/                        # Documentos generados (se crea automáticamente)
+│
+├── 🔍 detective_notas.py             # Módulo 1: Validador de Excel ✅
+├── ✨ word_mago.py                   # Módulo 2: Generador de Word ✅ (¡NUEVO!)
+├── 📧 mail_bot.py                    # Módulo 3: Enviador de Correos 🔜
 │
 ├── 📋 README.md                      # Esta documentación
 ├── 📜 requirements.txt               # Dependencias del proyecto
@@ -70,75 +114,76 @@ Arch_Office/
 
 ---
 
-## 🚀 Cómo Empezar
+## 🔧 Configuración y Uso
 
-1.  **Clona el repositorio:**
-    ```bash
-    git clone https://github.com/Astharmin/Arch_Office.git
-    cd Arch_Office
-    ```
+### 1. Instalación de Dependencias
+```bash
+# Asegúrate de tener las librerías necesarias
+pip install pandas openpyxl python-docx
+```
 
-2.  **Configura tu entorno (recomendado):**
-    ```bash
-    python -m venv venv
-    # En Windows:
-    venv\Scripts\activate
-    # En Linux/Mac:
-    source venv/bin/activate
-    ```
+### 2. Preparar Archivos de Entrada
+- **Excel**: Debe contener al menos dos hojas: `Notas` y `Datos_Alumnos`
+- **Plantilla Word**: Documento con marcadores de posición para los datos
 
-3.  **Instala las dependencias:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *(El archivo `requirements.txt` debe incluir `pandas`, `openpyxl` y en el futuro librerías para Word y email)*
+### 3. Ejecutar los Módulos
+```bash
+# Primero valida tus datos
+python detective_notas.py
 
-4.  **¡Ejecuta y automatiza!**
-    ```bash
-    # Prueba el validador de Excel
-    python detective_notas.py
-    ```
+# Luego genera los documentos
+python word_mago.py
+
+# Próximamente: enviar por correo
+# python mail_bot.py
+```
 
 ---
 
-## 📅 Hoja de Ruta (Roadmap)
+## 📊 Roadmap Actualizado
 
-El proyecto está vivo y en constante evolución. Este es el plan:
+### ✅ **Fase 1: Cimientos Sólidos (Completada)**
+- Validador robusto de archivos Excel (`detective_notas.py`)
+- Sistema de generación de documentos Word (`word_mago.py`)
 
-*   **✅ Fase 1: Cimientos (Completado)**
-    *   Validador robusto de archivos Excel (`detective_notas.py`).
-*   **🔨 Fase 2: Expansión (En Progreso)**
-    *   Desarrollo del módulo `word_mago.py` para generar documentos.
-    *   Desarrollo del módulo `mail_bot.py` para envío de correos.
-*   **🔮 Fase 3: Integración y Potencia (Futuro)**
-    *   Crear un script `orquestador.py` que combine varios módulos en un flujo de trabajo.
-    *   Añadir una interfaz de línea de comandos (CLI) más amigable.
-    *   Soporte para más formatos (PDF, PowerPoint).
+### 🔨 **Fase 2: Integración de Comunicación (En Progreso)**
+- Desarrollo del módulo `mail_bot.py` para envío automático de correos
+- Conexión entre generación de documentos y envío
 
-**¿Tienes una idea para un nuevo módulo o una mejora?** ¡Tu contribución es bienvenida! Revisa la sección de contribuciones.
+### 🔮 **Fase 3: Suite Completa (Próximo)**
+- Script `orquestador.py` que ejecute el flujo completo (validar → generar → enviar)
+- Interfaz de línea de comandos (CLI) más amigable
+- Soporte para más formatos (PDF, PowerPoint)
+- Dashboard web para monitoreo de procesos
 
 ---
 
-## 🤝 ¿Quieres Contribuir?
+## 🎯 Casos de Uso Real
 
-¡Me encantaría que este toolkit creciera con la ayuda de la comunidad! Puedes ayudar de varias formas:
+### 📚 Para Instituciones Educativas:
+- Generar boletines de notas personalizados para todos los alumnos
+- Validar consistencia de datos antes de publicar calificaciones
+- Enviar informes a padres y tutores automáticamente
 
-1.  **🐛 Reportar un Bug:** ¿Encontraste un error? Ábreme un *issue*.
-2.  **💡 Sugerir una Mejora:** ¿Tienes una idea para un nuevo módulo o funcionalidad? ¡Hablemos!
-3.  **🔧 Enviar un Pull Request (PR):** Si implementaste una corrección o una nueva característica, envíala.
-4.  **📚 Mejorar la Documentación:** ¿Encontraste algo poco claro en este README? Tu ayuda para hacerlo más comprensible es invaluable.
+### 🏢 Para Empresas:
+- Generar informes de desempeño individuales
+- Crear contratos o documentos personalizados
+- Automatizar comunicaciones masivas
 
 ---
 
 ## 📜 Licencia
 
-Este proyecto está bajo la **Licencia MIT**. En resumen: puedes usar, modificar y distribuir este código libremente, incluso con fines comerciales. Solo se pide atribución. Para más detalles, consulta el archivo `LICENSE`.
+Este proyecto está bajo la **Licencia MIT**. Puedes usar, modificar y distribuir este código libremente, incluso con fines comerciales. Solo se pide atribución. Para más detalles, consulta el archivo `LICENSE`.
 
 ## ✨ Autor
 
-- **Astharmin** -
-> "La tecnología debería liberarnos del trabajo repetitivo, no crearlo."
+**Astharmin**
+
+> "Automatizar no es eliminar el trabajo humano, es redirigirlo hacia donde más valor aporta."
 
 ---
 
-⭐ **¿Te parece útil automatizar tareas de oficina? ¡Dale una estrella al repositorio para apoyar su desarrollo!** ⭐
+⭐ **¿Te gusta automatizar tareas repetitivas? ¡Dale una estrella al repositorio para apoyar su desarrollo!** ⭐
+
+*"Transformando horas de trabajo manual en segundos de procesamiento automático."*
