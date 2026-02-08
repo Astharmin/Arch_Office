@@ -10,6 +10,12 @@ PLANTILLA_CURSOS_PATH = r'SRC/Plantilla_Final.docx'
 PATH_OUTPUT = r'.\OUTPUT'
 CURSO = '2021/2025'
 
+# Color de clasificaciones
+REP_COLOR = 'ec7c7b'
+APR_COLOR = 'ffbe08'
+EXI_COLOR = '4db4d7'
+SOBR_COLOR = '48bf91'
+
 
 def eliminar_tildes(texto: str) -> str:
     tildes_dic = {
@@ -105,15 +111,20 @@ def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
             # Determinar calificación
             if promedio < 5.0:
                 calif = 'REPROBADO'
+                color_clf = REP_COLOR
             elif promedio < 7.0:
                 calif = 'APROBADO'
+                color_clf = APR_COLOR
             elif promedio < 9.0:
                 calif = 'EXIMIDO'
+                color_clf = EXI_COLOR
             else:  # 9.0 o más
                 calif = 'SOBRESALIENTE'
+                color_clf = SOBR_COLOR
         else:
             nota_final = ''
             calif = 'SIN NOTAS'
+            color_clf = ''
 
         # Función de formato local
         def fmt(v):
@@ -128,7 +139,8 @@ def extraer_asignaturas_notas(df_alumno: pd.DataFrame) -> list:
             't2': fmt(n2),
             't3': fmt(n3),
             'nota_final': nota_final,
-            'calificacion': calif
+            'calificacion': calif,
+            'color' : color_clf
         })
 
     return asig_list
